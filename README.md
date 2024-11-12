@@ -137,7 +137,7 @@ python src/main.py
 #### 1. Build the Image
 
 ```bash
-docker build -t icetex-notifier .
+docker build -t icetex-scholarship-notifier .
 ```
 
 #### 2. Run the Container
@@ -146,12 +146,12 @@ You can specify individual JSON files or the entire directory. For individual fi
 
 ```bash
 docker run -d \
-  --name icetex-notifier \
+  --name icetex-scholarship-notifier \
   --env TELEGRAM_BOT_TOKEN=your_bot_token \
   --env TELEGRAM_CHAT_ID=your_chat_id \
   -v $(pwd)/configs/firebase.json:/app/configs/firebase.json:ro \
   -v $(pwd)/configs/webhooks.json:/app/configs/webhooks.json:ro \
-  icetex-notifier
+  icetex-scholarship-notifier
 ```
 
 > **Notes**:

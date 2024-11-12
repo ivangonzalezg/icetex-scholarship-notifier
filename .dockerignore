@@ -1,2 +1,4 @@
 node_modules
 env
+configs/firebase.json
+configs/webhooks.json
