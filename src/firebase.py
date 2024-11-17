@@ -6,9 +6,6 @@ from google.cloud.firestore_v1.base_query import FieldFilter
 
 collection = "scholarships"
 
-firebase_config_path = os.path.join(
-    os.path.dirname(os.path.dirname(__file__)), "configs/firebase.json"
-)
 
 firebase_admin.initialize_app(credentials.Certificate("./configs/firebase.json"))
 

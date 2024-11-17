@@ -6,10 +6,6 @@ TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
-file_path = os.path.join(
-    os.path.dirname(os.path.dirname(__file__)), "configs/webhooks.json"
-)
-
 
 def get_message(scholarship):
     message = (
@@ -28,10 +24,7 @@ def send_telegram_notification(scholarship):
     return response.ok
 
 
-def send_webhooks_notifications(scholarship):
-    webhooks = []
-    with open(file_path, "r") as file:
-        webhooks = json.load(file)
+def send_webhooks_notifications(webhooks, scholarship):
     results = []
     for webhook in webhooks:
         headers = webhook.get("headers", {})
