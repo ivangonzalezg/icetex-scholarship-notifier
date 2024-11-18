@@ -1,22 +1,33 @@
 import json
 import os
+import logging
 from scraper import fetch_page, parse_scholarships
 from firebase import save_to_firestore, is_new_scholarship
 from notifications import send_telegram_notification, send_webhooks_notifications
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[logging.FileHandler("app.log"), logging.StreamHandler()],
+)
 
 WEBHOOKS_JSON_PATH = os.path.join(os.path.dirname(__file__), "../configs/webhooks.json")
 
 
 def validate_env_vars():
+    logging.info("Validating environment variables.")
     required_vars = ["TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"]
     missing_vars = [var for var in required_vars if not os.getenv(var)]
     if missing_vars:
+        logging.error(f"Missing environment variables: {', '.join(missing_vars)}")
         raise ValueError(f"Missing environment variables: {', '.join(missing_vars)}")
+    logging.info("All required environment variables are set.")
 
 
 def load_and_validate_webhooks():
+    logging.info("Loading and validating webhooks configuration.")
     if not os.path.exists(WEBHOOKS_JSON_PATH):
-        print(f"Webhooks JSON file not found. Defaulting to an empty array.")
+        logging.warning(f"Webhooks JSON file not found. Defaulting to an empty array.")
         return []
     try:
         with open(WEBHOOKS_JSON_PATH, "r") as file:
@@ -52,29 +63,43 @@ def load_and_validate_webhooks():
                 raise ValueError(
                     f"Webhook additional_body at index {index} must be a dictionary."
                 )
+        logging.info("Webhooks configuration successfully loaded and validated.")
         return webhooks
     except json.JSONDecodeError as e:
+        logging.error(f"Invalid JSON format in {WEBHOOKS_JSON_PATH}: {e}")
         raise ValueError(f"Invalid JSON format in {WEBHOOKS_JSON_PATH}: {e}")
 
 
 def initialize_app():
+    logging.info("Initializing application.")
     validate_env_vars()
     webhooks = load_and_validate_webhooks()
     return webhooks
 
 
 def main(webhooks):
+    logging.info("Starting main execution.")
     html_content = fetch_page()
     if html_content:
+        logging.info("Page content successfully fetched.")
         scholarships = parse_scholarships(html_content)
+        logging.info(f"Parsed {len(scholarships)} scholarships.")
         new_scholarships = []
         for scholarship in scholarships:
             if is_new_scholarship(scholarship["url"]):
+                logging.info(f"New scholarship detected: {scholarship['url']}")
                 new_scholarships.append(scholarship)
                 send_telegram_notification(scholarship)
                 send_webhooks_notifications(webhooks, scholarship)
         if new_scholarships:
+            logging.info(
+                f"Saving {len(new_scholarships)} new scholarships to Firestore."
+            )
             save_to_firestore(new_scholarships)
+        else:
+            logging.info("No new scholarships to save.")
+    else:
+        logging.warning("No HTML content fetched. Skipping processing.")
 
 
 if __name__ == "__main__":
@@ -82,4 +107,4 @@ if __name__ == "__main__":
         webhooks = initialize_app()
         main(webhooks)
     except Exception as e:
-        print(f"Error during initialization: {e}")
+        logging.error(f"Error during execution: {e}")
