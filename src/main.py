@@ -11,7 +11,7 @@ load_dotenv()
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("logs/app.log"), logging.StreamHandler()],
+    handlers=[logging.StreamHandler()],
 )
 
 WEBHOOKS_JSON_PATH = os.path.join(os.path.dirname(__file__), "../configs/webhooks.json")

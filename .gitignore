@@ -164,5 +164,3 @@ cython_debug/
 # Project files
 configs/firebase.json
 configs/webhooks.json
-logs/*
-!logs/.gitkeep

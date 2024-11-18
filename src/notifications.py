@@ -5,7 +5,7 @@ import logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("logs/notifications.log"), logging.StreamHandler()],
+    handlers=[logging.StreamHandler()],
 )
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
