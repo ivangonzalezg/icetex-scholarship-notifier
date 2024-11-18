@@ -10,7 +10,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("scraper.log"), logging.StreamHandler()],
+    handlers=[logging.FileHandler("logs/scraper.log"), logging.StreamHandler()],
 )
 
 parsed_url = urlparse(URL)

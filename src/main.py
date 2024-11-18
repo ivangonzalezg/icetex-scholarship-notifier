@@ -4,11 +4,14 @@ import logging
 from scraper import fetch_page, parse_scholarships
 from firebase import save_to_firestore, is_new_scholarship
 from notifications import send_telegram_notification, send_webhooks_notifications
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("app.log"), logging.StreamHandler()],
+    handlers=[logging.FileHandler("logs/app.log"), logging.StreamHandler()],
 )
 
 WEBHOOKS_JSON_PATH = os.path.join(os.path.dirname(__file__), "../configs/webhooks.json")

@@ -6,7 +6,7 @@ from google.cloud.firestore_v1.base_query import FieldFilter
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("firebase_operations.log"), logging.StreamHandler()],
+    handlers=[logging.FileHandler("logs/firebase.log"), logging.StreamHandler()],
 )
 
 collection = "scholarships"
