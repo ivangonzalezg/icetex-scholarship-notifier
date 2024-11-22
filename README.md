@@ -2,6 +2,14 @@
 
 This project performs **web scraping** on the ICETEX scholarship page, stores the data in **Firebase**, and notifies about new scholarships via **Telegram** and **configurable webhooks**.
 
+## Examples
+
+**Telegram:**
+![telegram](.github/screenshots/telegram.jpg)
+
+**Whatsapp:**
+![whatsapp](.github/screenshots/whatsapp.jpeg)
+
 ## Features
 
 - **Web Scraping**: Extracts scholarship information from the ICETEX website.

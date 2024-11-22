@@ -1,4 +1,4 @@
 .env
 env
-configs/firebase.json
-configs/webhooks.json
+configs
+.github
