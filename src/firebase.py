@@ -1,5 +1,6 @@
 import logging
 import firebase_admin
+import os
 from firebase_admin import credentials, firestore
 from google.cloud.firestore_v1.base_query import FieldFilter
 
@@ -13,7 +14,10 @@ collection = "scholarships"
 
 try:
     logging.info("Initializing Firebase Admin SDK.")
-    firebase_admin.initialize_app(credentials.Certificate("./configs/firebase.json"))
+    firebase_json_path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "../configs/firebase.json"
+    )
+    firebase_admin.initialize_app(credentials.Certificate(firebase_json_path))
     db = firestore.client()
     logging.info("Firebase initialized successfully.")
 except Exception as e:
