@@ -31,7 +31,7 @@ icetex-scholarship-notifier/
 ├── src/
 │   ├── config.py
 │   ├── firebase.py
-│   ├── main.py
+│   ├── app.py
 │   ├── notifications.py
 │   ├── scraper.py
 ├── cronjob
@@ -137,7 +137,7 @@ The `webhooks.json` file defines how the project sends data to external endpoint
 ### Run Locally
 
 ```bash
-python src/main.py
+python src/app.py
 ```
 
 ### Run with Docker
@@ -179,7 +179,7 @@ The project includes a configuration to run the script automatically at 9:00 a.m
 Example cron job for a local server:
 
 ```bash
-0 9 * * * cd /path/to/icetex-scholarship-notifier && python src/main.py
+0 9 * * * cd /path/to/icetex-scholarship-notifier && python src/app.py
 ```
 
 ---
