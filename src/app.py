@@ -80,8 +80,8 @@ def initialize_app():
     return webhooks
 
 
-def main(webhooks):
-    logging.info("Starting main execution.")
+def app(webhooks):
+    logging.info("Starting app execution.")
     html_content = fetch_page()
     if html_content:
         logging.info("Page content successfully fetched.")
@@ -108,6 +108,6 @@ def main(webhooks):
 if __name__ == "__main__":
     try:
         webhooks = initialize_app()
-        main(webhooks)
+        app(webhooks)
     except Exception as e:
         logging.error(f"Error during execution: {e}")
