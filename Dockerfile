@@ -21,4 +21,4 @@ RUN touch /var/log/cron.log
 
 USER root
 
-CMD ["sh", "-c", "cron -f & tail -f /var/log/cron.log"]
+CMD ["sh", "-c", "printenv >> /etc/environment && cron -f & tail -f /var/log/cron.log"]
