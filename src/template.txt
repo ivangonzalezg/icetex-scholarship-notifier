@@ -28,14 +28,6 @@
 
 {funding}
 
-👤 *Perfil del Aspirante*
+📚 *Más Información*
 
-{applicantprofile}
-
-📝 *Documentos Requeridos*
-
-{documents}
-
-⚖️ *Criterios de Preselección*
-
-{selectioncriteria}
+Para más detalles, visita el siguiente enlace: {url}
