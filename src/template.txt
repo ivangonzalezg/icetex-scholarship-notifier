@@ -1,0 +1,41 @@
+🎓 *Nueva Beca Disponible*
+
+*Información de la beca: {name}*
+
+📅 *Fechas Importantes*
+
+- *Apertura de Postulaciones:* {openingdate}
+- *Cierre de Postulaciones:* {deadlinedate}
+- *Anuncio de Resultados:* {resultsdate}
+
+🌍 *Datos Generales*
+
+- *País:* {country}
+- *Ciudad:* {city}
+- *Institución que Ofrece la Beca:* {institution}
+- *Duración del Programa:* {duration}
+- *Fecha de Inicio:* {startdate}
+- *Fecha de Finalización:* {enddate}
+- *Idioma:* {language}
+- *Modalidad:* {mode}
+- *Área de Estudio:* {studyarea}
+
+🎓 *Título a Obtener*
+
+{degree}
+
+💰 *Financiamiento*
+
+{funding}
+
+👤 *Perfil del Aspirante*
+
+{applicantprofile}
+
+📝 *Documentos Requeridos*
+
+{documents}
+
+⚖️ *Criterios de Preselección*
+
+{selectioncriteria}

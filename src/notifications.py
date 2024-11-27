@@ -14,12 +14,13 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 
 def get_message(scholarship):
-    message = (
-        f"🎓 *Nueva Beca Disponible:*\n\n"
-        f"🔹 {scholarship.get('title')}\n"
-        f"🔗 {scholarship.get('url')}"
+    template_path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "template.txt"
     )
-    logging.debug(f"Generated message: {message}")
+    with open(template_path, "r") as file:
+        template = file.read()
+    message = template.format(**scholarship)
+    logging.debug("Message generated")
     return message
 
 

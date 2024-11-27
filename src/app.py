@@ -1,7 +1,7 @@
 import json
 import os
 import logging
-from scraper import fetch_page, parse_scholarships
+from scraper import fetch_page, parse_scholarships, parse_scholarship
 from firebase import save_to_firestore, is_new_scholarship
 from notifications import send_telegram_notification, send_webhooks_notifications
 from dotenv import load_dotenv
@@ -91,6 +91,9 @@ def app(webhooks):
         for scholarship in scholarships:
             if is_new_scholarship(scholarship["url"]):
                 logging.info(f"New scholarship detected: {scholarship['url']}")
+                scholarship_html_content = fetch_page(scholarship["url"])
+                parsed_scholarship = parse_scholarship(scholarship_html_content)
+                scholarship.update(parsed_scholarship)
                 new_scholarships.append(scholarship)
                 send_telegram_notification(scholarship)
                 send_webhooks_notifications(webhooks, scholarship)
