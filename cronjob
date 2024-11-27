@@ -1,4 +1,4 @@
 SHELL=/bin/bash
 BASH_ENV=/etc/environment
 
-0 9 * * * root /usr/local/bin/python /app/src/app.py >> /var/log/cron.log 2>&1
+0 9,18 * * * root /usr/local/bin/python /app/src/app.py >> /var/log/cron.log 2>&1
