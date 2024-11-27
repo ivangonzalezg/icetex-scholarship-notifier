@@ -162,5 +162,5 @@ cython_debug/
 #.idea/
 
 # Project files
-configs/firebase.json
-configs/webhooks.json
+configs
+!configs/.gitkeep
