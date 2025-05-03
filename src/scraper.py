@@ -1,6 +1,7 @@
-import requests
-import urllib3
 import logging
+import requests
+import traceback
+import urllib3
 from bs4 import BeautifulSoup
 from config import URL
 from urllib.parse import urlparse, urlunparse
@@ -75,7 +76,8 @@ def parse_scholarship(html_content) -> dict:
         indicators = container.select(".indicadores_becas")
         indicators_data = {}
         for indicator in indicators:
-            key, value = indicator.get_text(strip=True).split(":")
+            text = indicator.get_text(strip=True)
+            key, value = text.split(":", 1)
             indicators_data[key] = value
         openingdate = indicators_data.get("Apertura", "")
         deadlinedate = indicators_data.get("Cierre", "")
@@ -143,4 +145,5 @@ def parse_scholarship(html_content) -> dict:
         }
     except Exception as e:
         logging.error(f"Error parsing scholarship: {e}")
+        print(traceback.format_exc())
         return {}
