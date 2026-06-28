@@ -93,15 +93,23 @@ def app(webhooks):
                 logging.info(f"New scholarship detected: {scholarship['url']}")
                 scholarship_html_content = fetch_page(scholarship["url"])
                 parsed_scholarship = parse_scholarship(scholarship_html_content)
+                if not parsed_scholarship:
+                    logging.error(
+                        f"Failed to parse scholarship page, skipping: {scholarship['url']}"
+                    )
+                    continue
                 scholarship.update(parsed_scholarship)
-                new_scholarships.append(scholarship)
-                send_telegram_notification(scholarship)
-                send_webhooks_notifications(webhooks, scholarship)
+                try:
+                    save_to_firestore([scholarship])
+                    new_scholarships.append(scholarship)
+                    send_telegram_notification(scholarship)
+                    send_webhooks_notifications(webhooks, scholarship)
+                except Exception as e:
+                    logging.error(
+                        f"Failed to save or notify for scholarship {scholarship['url']}: {e}"
+                    )
         if new_scholarships:
-            logging.info(
-                f"Saving {len(new_scholarships)} new scholarships to Firestore."
-            )
-            save_to_firestore(new_scholarships)
+            logging.info(f"Processed {len(new_scholarships)} new scholarships.")
         else:
             logging.info("No new scholarships to save.")
     else:

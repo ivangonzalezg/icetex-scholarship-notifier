@@ -119,8 +119,8 @@ def parse_scholarship(html_content) -> dict:
                     if len(tds) > 1:
                         for td in tds:
                             values.append(td.get_text(strip=True))
-                for index in range(len(keys)):
-                    funding += f"*{keys[index]}:* {values[index]}\n"
+                for key, value in zip(keys, values):
+                    funding += f"*{key}:* {value}\n"
                 for extra in extras:
                     funding += f"{extra}\n"
         return {
